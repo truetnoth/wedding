@@ -1,0 +1,557 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Вика и Валера · 04.07.2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0a0a0a;
+    --ink-soft: #6a6a6a;
+    --bg: #ffffff;
+    --font: "Spectral", "Times New Roman", Georgia, serif;
+    --gutter: clamp(24px, 6vw, 48px);
+    --max: 640px;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font);
+    font-weight: 300;
+    line-height: 1.5;
+    font-size: 18px;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .page {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: clamp(28px, 5vw, 56px) var(--gutter) clamp(40px, 6vw, 72px);
+  }
+
+  /* —— twemoji ornament —— */
+  .deco {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+  }
+  .deco img {
+    width: 22px;
+    height: 22px;
+    display: block;
+  }
+  .deco.large img { width: 26px; height: 26px; }
+  .deco.flowers { gap: 10px; }
+  .deco.flowers img { width: 36px; height: 36px; }
+  @media (min-width: 480px) {
+    .deco.flowers img { width: 42px; height: 42px; }
+  }
+
+  /* —— section divider (one small flower) —— */
+  .divider {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: clamp(28px, 5vw, 44px) 0 clamp(8px, 1.5vw, 16px);
+  }
+  .divider img {
+    width: 24px;
+    height: 24px;
+    display: block;
+    opacity: .9;
+  }
+  .divider + section { margin-top: clamp(12px, 2vw, 20px); }
+
+  /* —— small label / eyebrow —— */
+  .eyebrow {
+    font-weight: 500;
+    font-size: 11px;
+    letter-spacing: .36em;
+    text-transform: uppercase;
+    text-align: center;
+    color: var(--ink);
+    margin: 14px 0 0;
+  }
+  .eyebrow.muted { color: var(--ink-soft); font-weight: 500; }
+
+  /* —— hero —— */
+  .hero {
+    text-align: center;
+    margin-top: clamp(16px, 3vw, 24px);
+  }
+  .hero h1 {
+    font-weight: 500;
+    font-size: clamp(56px, 14vw, 112px);
+    line-height: 1;
+    letter-spacing: -.01em;
+    margin: 0;
+  }
+  .hero h1 .amp {
+    font-weight: 600;
+    margin: 0 .04em;
+    letter-spacing: -.02em;
+  }
+  .hero h1 .nameline {
+    display: block;
+  }
+
+  .date-stamp {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: clamp(6px, 1.4vw, 12px);
+    margin-top: clamp(18px, 3vw, 28px);
+    font-weight: 300;
+    font-size: clamp(22px, 5vw, 32px);
+    letter-spacing: .04em;
+    font-variant-numeric: lining-nums tabular-nums;
+  }
+  .date-stamp .dot {
+    width: 4px; height: 4px; border-radius: 50%;
+    background: var(--ink);
+  }
+  .weekday {
+    margin-top: 10px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: .3em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    text-align: center;
+  }
+
+  /* —— section spacing (compact) —— */
+  section { margin-top: clamp(36px, 6vw, 56px); }
+
+  /* —— greeting —— */
+  .greeting { text-align: center; }
+  .guest-name {
+    font-weight: 600;
+    font-size: clamp(22px, 5.2vw, 32px);
+    line-height: 1.2;
+    letter-spacing: -.01em;
+    margin: 0 0 12px;
+  }
+  .greeting p {
+    font-weight: 300;
+    font-size: clamp(18px, 3.8vw, 22px);
+    line-height: 1.4;
+    margin: 0;
+    text-wrap: pretty;
+    color: var(--ink);
+  }
+
+  /* —— details —— */
+  .details {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 28px;
+    text-align: center;
+  }
+  .details .row { display: grid; gap: 6px; }
+  .details .label {
+    font-weight: 500;
+    font-size: 10px;
+    letter-spacing: .4em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .details .value {
+    font-weight: 500;
+    font-size: clamp(24px, 5.6vw, 36px);
+    line-height: 1.15;
+    letter-spacing: -.005em;
+  }
+  .details .value small {
+    display: block;
+    margin-top: 6px;
+    font-size: clamp(15px, 3.4vw, 17px);
+    font-weight: 400;
+    letter-spacing: .01em;
+    color: var(--ink-soft);
+  }
+  @media (min-width: 560px) {
+    .details {
+      grid-template-columns: 1fr 1fr;
+      gap: 32px 40px;
+    }
+    .details .row.full { grid-column: 1 / -1; }
+  }
+
+  .map-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 14px;
+    padding: 12px 20px;
+    border: 1px solid var(--ink);
+    color: var(--ink);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 12px;
+    letter-spacing: .26em;
+    text-transform: uppercase;
+    transition: background .2s ease, color .2s ease;
+  }
+  .map-link:hover { background: var(--ink); color: var(--bg); }
+  .map-link svg { width: 12px; height: 12px; }
+
+  /* —— notes —— */
+  .notes {
+    display: grid;
+    gap: 18px;
+    text-align: center;
+  }
+  .note {
+    font-weight: 400;
+    font-size: clamp(17px, 3.6vw, 21px);
+    line-height: 1.4;
+    margin: 0;
+    text-wrap: pretty;
+  }
+  .note + .note {
+    padding-top: 18px;
+    border-top: 1px solid rgba(0,0,0,.08);
+  }
+
+  /* —— countdown —— */
+  .countdown-label { margin-bottom: 18px; }
+  .countdown {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: clamp(2px, 1vw, 8px);
+    text-align: center;
+  }
+  .cd-cell { display: flex; flex-direction: column; gap: 6px; }
+  .cd-num {
+    font-weight: 300;
+    font-size: clamp(36px, 10vw, 64px);
+    line-height: 1;
+    letter-spacing: -.01em;
+    font-variant-numeric: tabular-nums;
+  }
+  .cd-unit {
+    font-weight: 500;
+    font-size: 10px;
+    letter-spacing: .28em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  @media (max-width: 380px) {
+    .cd-unit { letter-spacing: .18em; font-size: 9px; }
+  }
+
+  /* —— signoff —— */
+  .signoff {
+    text-align: center;
+    margin-top: clamp(36px, 6vw, 56px);
+    font-weight: 400;
+    font-size: clamp(18px, 3.8vw, 22px);
+  }
+  .signoff .with-love {
+    display: block;
+    font-weight: 500;
+    font-size: 10px;
+    letter-spacing: .4em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 10px;
+  }
+  .signoff .names {
+    font-weight: 500;
+    letter-spacing: -.005em;
+  }
+
+  /* —— footer ornament —— */
+  .foot { margin-top: clamp(32px, 5vw, 48px); }
+
+  @media print {
+    body { font-size: 14pt; }
+    .map-link { border: 1px solid #000; }
+  }
+</style>
+</head>
+<body>
+
+<main class="page" data-comment-anchor="2053e7d801-main">
+
+  <!-- top ornament: single red heart via Twemoji SVG (consistent across devices) -->
+  <div class="deco large" aria-hidden="true" data-comment-anchor="f8b7b66d0b-div">
+    <img src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets/svg/2764.svg" alt="" />
+  </div>
+
+  <p class="eyebrow">Приглашение&nbsp;на&nbsp;свадьбу</p>
+
+  <!-- hero -->
+  <header class="hero">
+    <h1>
+      <span class="nameline" data-comment-anchor="fd48994359-span">Вика</span>
+      <span class="amp" data-comment-anchor="16b4808a68-span">&amp;</span>
+      <span class="nameline">Валера</span>
+    </h1>
+
+    <div class="date-stamp" aria-label="4 июля 2026" data-comment-anchor="c6fd10a0c6-div">
+      <span>04</span>
+      <span class="dot"></span>
+      <span data-comment-anchor="050ccb6a6f-span">07</span>
+      <span class="dot"></span>
+      <span>2026</span>
+    </div>
+    <div class="weekday">суббота</div>
+  </header>
+
+  <div class="divider" data-flower aria-hidden="true"></div>
+
+  <!-- greeting -->
+  <section class="greeting">
+    <p class="guest-name" id="guest" data-comment-anchor="d41e2b1723-p">Дорогие гости,</p>
+    <p id="invite-text" data-comment-anchor="ea1e34660c-p">приглашаем вас на&nbsp;торжественную церемонию нашего&nbsp;бракосочетания</p>
+  </section>
+
+  <!-- details -->
+  <section class="details">
+    <div class="row">
+      <div class="label">Дата</div>
+      <div class="value">4&nbsp;июля<small>2026&nbsp;года, суббота</small></div>
+    </div>
+    <div class="row">
+      <div class="label">Время</div>
+      <div class="value">12:00<small data-comment-anchor="504aa39213-small">приходите&nbsp;к&nbsp;11:45</small></div>
+    </div>
+    <div class="row full">
+      <div class="label">Место</div>
+      <div class="value" id="venue" data-comment-anchor="2814a35611-div">Московский&nbsp;проспект,<br>192–194<small>ЗАГС Московского&nbsp;района</small></div>
+      <div>
+        <a class="map-link" id="map" href="https://yandex.ru/maps/-/CPHa6SIu" target="_blank" rel="noopener" data-comment-anchor="4db4cf1e54-a">
+          Открыть&nbsp;в&nbsp;Яндекс.Картах
+          <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.2">
+            <path d="M3 11 L11 3"></path>
+            <path d="M5 3 H11 V9"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider" data-flower aria-hidden="true"></div>
+
+  <!-- notes -->
+  <section class="notes">
+    <p class="note" data-comment-anchor="4af88ec31b-p">Лучше&nbsp;приезжать заранее,<br>хотя&nbsp;бы&nbsp;за&nbsp;15&nbsp;минут</p>
+    <p class="note">Пожалуйста,<br>не&nbsp;дарите&nbsp;нам цветы</p>
+  </section>
+
+  <div class="divider" data-flower aria-hidden="true"></div>
+
+  <!-- countdown -->
+  <section>
+    <p class="eyebrow muted countdown-label">До&nbsp;нашего&nbsp;дня&nbsp;осталось</p>
+    <div class="countdown" id="cd" aria-live="polite">
+      <div class="cd-cell"><span class="cd-num" id="cd-d">—</span><span class="cd-unit">дней</span></div>
+      <div class="cd-cell"><span class="cd-num" id="cd-h" data-comment-anchor="9eafa449ce-span">—</span><span class="cd-unit">часов</span></div>
+      <div class="cd-cell"><span class="cd-num" id="cd-m">—</span><span class="cd-unit">минут</span></div>
+      <div class="cd-cell"><span class="cd-num" id="cd-s">—</span><span class="cd-unit">секунд</span></div>
+    </div>
+  </section>
+
+  <!-- signoff -->
+  <p class="signoff">
+    <span class="with-love">С&nbsp;любовью,</span>
+    <span class="names">Вика&nbsp;и&nbsp;Валера</span>
+  </p>
+
+  <!-- footer ornament: flowers (Twemoji SVG, consistent across devices) -->
+  <div class="deco flowers foot" aria-hidden="true">
+    <img src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets/svg/1f338.svg" alt="" data-comment-anchor="5586b7f2f2-svg" />
+    <img src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets/svg/1f33c.svg" alt="" data-comment-anchor="5225871a10-img" />
+    <img src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets/svg/1f338.svg" alt="" />
+  </div>
+
+</main>
+
+<script>
+  // Drop a random flower emoji into each section divider — no repeats
+  (function () {
+    var flowers = ["1f338", "1f33c", "1f339", "1f33a", "1f33b", "1f337", "1f490"];
+    // Fisher–Yates shuffle
+    for (var i = flowers.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = flowers[i]; flowers[i] = flowers[j]; flowers[j] = tmp;
+    }
+    var slots = document.querySelectorAll(".divider[data-flower]");
+    slots.forEach(function (slot, idx) {
+      var code = flowers[idx % flowers.length];
+      var img = document.createElement("img");
+      img.src = "https://cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets/svg/" + code + ".svg";
+      img.alt = "";
+      slot.appendChild(img);
+    });
+  })();
+
+  // Personalize greeting via ?to=Name1,Name2,...
+  // Gender is detected automatically from a Russian name dictionary.
+  // Examples:
+  //   ?to=Анна          → Дорогая Анна,
+  //   ?to=Миша          → Дорогой Миша,
+  //   ?to=Миша,Марина   → Дорогие Миша и Марина,
+  (function () {
+    var params = new URLSearchParams(location.search);
+    var raw = params.get("to");
+    if (!raw || !raw.trim()) return;
+
+    var names = raw.split(",").map(function (n) { return n.trim(); }).filter(Boolean);
+    if (!names.length) return;
+
+    var count = names.length;
+    var greeting;
+    if (count > 1) {
+      var last = names.pop();
+      greeting = "Дорогие " + (names.length ? names.join(", ") + " и " : "") + last + ",";
+    } else {
+      var name = names[0];
+      var prefix = isFemale(name) ? "Дорогая" : "Дорогой";
+      greeting = prefix + " " + name + ",";
+    }
+
+    document.getElementById("guest").textContent = greeting;
+    if (count === 1) {
+      document.getElementById("invite-text").innerHTML =
+        "приглашаем тебя на\u00a0торжественную церемонию нашего\u00a0бракосочетания";
+    }
+
+    function isFemale(name) {
+      var n = name.toLowerCase();
+      // Common Russian female first names and diminutives
+      var f = [
+        "анна","аня","аннушка",
+        "мария","маша","машенька","маруся",
+        "екатерина","катя","катюша","кате","катенька",
+        "ольга","оля","оленька","оленька",
+        "татьяна","таня","танюша","танечка",
+        "наталья","наталия","наташа","наташенька","натали",
+        "елена","лена","леночка","алёна","алена","алёнка",
+        "анастасия","настя","настенька","настюша",
+        "светлана","света","светочка","светуля",
+        "ирина","ира","ирочка","иришка",
+        "нина","ниночка","ниша",
+        "вера","верочка","верушка",
+        "надежда","надя","наденька","надюша",
+        "людмила","люда","людочка","люся","людмилочка",
+        "галина","галя","галочка","галинка",
+        "тамара","тома","томочка","тамарочка",
+        "валентина","валя","валечка","валюша",
+        "юлия","юля","юленька","юлечка",
+        "марина","мариночка","мариша",
+        "виктория","вика","виточка","викуля",
+        "александра","шура","сашенька",
+        "евгения","женечка",
+        "полина","поля","поленька","полюша",
+        "дарья","даша","дашенька","дашуля",
+        "ксения","ксюша","ксюшенька","ксюня",
+        "алина","алиночка","алинка",
+        "диана","дианочка","дианка",
+        "яна","яночка","янка",
+        "кристина","кристиночка","кристинка",
+        "лариса","лара","ларочка","ларисочка",
+        "любовь","люба","любочка","любаша",
+        "жанна","жанночка","жанка",
+        "зоя","зоечка","зойка","зоюшка",
+        "лидия","лида","лидочка","лидуся",
+        "валерия","лера","лерочка","лерка",
+        "антонина","тоня","тонечка","тонюша",
+        "вероника","ника","никочка","вероничка",
+        "елизавета","лиза","лизочка","лизуня",
+        "алла","аллочка","аллуся",
+        "инна","иночка","инуля",
+        "оксана","оксаночка","ксана",
+        "карина","кариночка","каринка",
+        "ангелина","геля","лина","ангелиночка",
+        "маргарита","рита","риточка","ритуля",
+        "варвара","варя","варенька","варюша","варюха",
+        "соня","сонечка","сонюша",
+        "софия","софья","сонюша",
+        "василиса","василисочка","василисушка",
+        "клара","кларочка","кларуся",
+        "мила","милочка","миленька",
+        "эмма","эммочка",
+        "роза","розочка","розуля",
+        "белла","беллочка",
+        "инга","ингочка",
+        "дина","диночка","динуля",
+        "регина","региночка","рей",
+        "снежана","снежаночка",
+        "злата","золотце","златочка",
+        "кира","кирочка","кируля",
+        "тина","тиночка","тинка",
+        "лиля","лилия","лилечка","лиличка",
+        "эвелина","эвелиночка",
+        "ева","евочка","евушка",
+        "милана","миланочка",
+        "арина","аришка","аринка",
+        "стася","стасенька",
+        "влада","владочка",
+        "гуля","гулечка",
+        "зина","зинаида","зиночка","зинуля",
+        "раиса","рая","раечка","раюша",
+        "тая","таисия","тайка","таечка",
+        "нора","норочка","норушка",
+        "римма","риммочка","риммуля",
+        "нелли","нелля","нелличка",
+        "ася","асенька","асюша",
+        "эля","элечка","элюша",
+        "яся","ясенька",
+        "нюша","нюшенька",
+        "таша","ташенька",
+        "ника","никуля"
+      ];
+      return f.indexOf(n) !== -1;
+    }
+  })();
+
+  // Live countdown to 04.06.2026 12:00 Europe/Moscow (UTC+3)
+  (function () {
+    var target = new Date("2026-07-04T12:00:00+03:00").getTime();
+    var d = document.getElementById("cd-d");
+    var h = document.getElementById("cd-h");
+    var m = document.getElementById("cd-m");
+    var s = document.getElementById("cd-s");
+
+    function pad(n, len) {
+      n = String(Math.max(0, Math.floor(n)));
+      while (n.length < (len || 2)) n = "0" + n;
+      return n;
+    }
+
+    function tick() {
+      var diff = target - Date.now();
+      if (diff <= 0) {
+        d.textContent = "00"; h.textContent = "00";
+        m.textContent = "00"; s.textContent = "00";
+        return;
+      }
+      var days = Math.floor(diff / 86400000);
+      var hours = Math.floor((diff % 86400000) / 3600000);
+      var mins = Math.floor((diff % 3600000) / 60000);
+      var secs = Math.floor((diff % 60000) / 1000);
+      d.textContent = pad(days, days > 99 ? 3 : 2);
+      h.textContent = pad(hours);
+      m.textContent = pad(mins);
+      s.textContent = pad(secs);
+    }
+    tick();
+    setInterval(tick, 1000);
+  })();
+</script>
+
+</body>
+</html>
