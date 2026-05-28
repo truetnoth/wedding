@@ -412,15 +412,27 @@
     var names = raw.split(",").map(function (n) { return n.trim(); }).filter(Boolean);
     if (!names.length) return;
 
+    var rawTitles = params.get("titles") || "";
+    var titles = rawTitles.split(",").map(function (t) { return t.trim(); });
+
     var count = names.length;
     var greeting;
     if (count > 1) {
-      var last = names.pop();
-      greeting = "Дорогие " + (names.length ? names.join(", ") + " и " : "") + last + ",";
+      var parts = names.map(function (name, i) {
+        var title = titles[i] || "";
+        return title ? title + " " + name : name;
+      });
+      var last = parts.pop();
+      greeting = "Дорогие " + (parts.length ? parts.join(", ") + " и " : "") + last + ",";
     } else {
       var name = names[0];
-      var prefix = isFemale(name) ? "Дорогая" : "Дорогой";
-      greeting = prefix + " " + name + ",";
+      var title = titles[0] || "";
+      var fem;
+      if (title === "тётя") { fem = true; }
+      else if (title === "дядя") { fem = false; }
+      else { fem = isFemale(name); }
+      var prefix = fem ? "Дорогая" : "Дорогой";
+      greeting = prefix + (title ? " " + title + " " : " ") + name + ",";
     }
 
     document.getElementById("guest").textContent = greeting;
@@ -439,7 +451,6 @@
         "екатерина","катя","катюша","кате","катенька",
         "ольга","оля","оленька","оленька",
         "татьяна","таня","танюша","танечка",
-		"тётя Наташа",
         "наталья","наталия","наташа","наташенька","натали",
         "елена","лена","леночка","алёна","алена","алёнка",
         "анастасия","настя","настенька","настюша",
